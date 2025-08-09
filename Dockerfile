@@ -12,7 +12,7 @@ COPY . /var/www/html/
 RUN chown -R www-data:www-data /var/www/html
 
 # Configurer Apache pour écouter sur le port fourni par Render
-RUN sed -i "s/Listen 80/Listen ${PORT}/" /etc/apache2/ports.conf || true
+RUN sed -i "s/Listen 80/" /etc/apache2/ports.conf || true
 
 # Exposer un port par défaut (Render remplacera avec PORT)
 EXPOSE 80
