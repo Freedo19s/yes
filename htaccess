@@ -1,0 +1,11 @@
+# Bloquer l'accès direct au fichier credentials.txt
+
+<Files "credentials.txt">
+Require all denied
+</Files>
+
+# Optionnel : bloquer aussi les fichiers .env ou .htaccess
+
+<FilesMatch "^(\.env|\.htaccess)$">
+Require all denied
+</FilesMatch>
