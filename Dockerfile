@@ -1,7 +1,7 @@
 # Utiliser l'image officielle PHP + Apache
 FROM php:8.2-apache
 
-# Activer mod_rewrite et permettre les fichiers .htaccess
+# Activer mod_rewrite et permettre .htaccess
 RUN a2enmod rewrite \
     && sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
 
@@ -11,8 +11,11 @@ COPY . /var/www/html/
 # Donner les bons droits
 RUN chown -R www-data:www-data /var/www/html
 
-# Exposer le port que Render utilisera
+# Configurer Apache pour écouter sur le port fourni par Render
+RUN sed -i "s/Listen 80/Listen ${PORT}/" /etc/apache2/ports.conf || true
+
+# Exposer un port par défaut (Render remplacera avec PORT)
 EXPOSE 10000
 
-# Lancer Apache sur le port donné par Render
-CMD ["bash", "-c", "apache2-foreground -DFOREGROUND -k start -p ${PORT:-10000}"]
+# Lancer Apache normalement
+CMD ["apache2-foreground"]
