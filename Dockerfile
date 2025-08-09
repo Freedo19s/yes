@@ -15,7 +15,7 @@ RUN chown -R www-data:www-data /var/www/html
 RUN sed -i "s/Listen 80/Listen ${PORT}/" /etc/apache2/ports.conf || true
 
 # Exposer un port par défaut (Render remplacera avec PORT)
-EXPOSE 10000
+EXPOSE 80
 
 # Lancer Apache normalement
 CMD ["apache2-foreground"]
